@@ -6,8 +6,9 @@ function -lazyJSON {
 
 function -9k1push {
 	local response="$(curl -s -F "key=$api_key" -F "data=@-" $url)"
-	[[ -n "$file" ]] && file='/'${"$(basename $file | grep -Poi "[a-z0-9_.-]+")"//$'\n'/_}
 	local error="$(-lazyJSON error)"
+
+	[[ -n "$file" ]] && file='/'${"$(basename $file | grep -Poi "[a-z0-9:_.-]+")"//$'\n'/_}
 
 	if [[ -z "$error" ]]; then
 		print $(-lazyJSON url)$file

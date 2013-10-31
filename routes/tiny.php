@@ -14,10 +14,10 @@
 
 		$id = randID(4);
 
-		if (count($_FILES) && $_FILES['data']['tmp_name']) {
-			$file = pasteFilename($id);
-			$dir = dirname($file);
+		$file = pasteFilename($id);
+		$dir = dirname($file);
 
+		if (count($_FILES) && $_FILES['data']['tmp_name']) {
 			if (!is_dir($dir))
 				mkdir($dir, 0755, true);
 

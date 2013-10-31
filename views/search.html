@@ -1,0 +1,416 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Siiigh...</title>
+
+<select id="engine"></select>
+
+<div class="container">
+	<form id="poster">
+		<input name="q" id="q" placeholder="Do I have to do everything?" x-webkit-speech><br>
+		<button id="lazy" type="button">Feeling lazy?</button>
+		<button id="search">Just search already...</button>
+	</form>
+
+	<input id="link" readonly>
+	<span id="copy"></span>
+</div>
+
+<div id="cursor"></div>
+<img src="//i.9k1.us/">
+
+
+<style>
+body, input, button {
+	font-family: sans-serif;
+}
+
+div.container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	margin: -35px 0 0 -200px;
+	text-align: center;
+}
+
+input {
+	width: 400px;
+	margin-left: -11px;
+	font-size: large;
+	border: 1px solid #bbb;
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #555;
+	background: #fafafa;
+	box-shadow: 0 0 0 2px #fff inset;
+	outline: 0;
+}
+	input:focus {
+		box-shadow: 0 0 0 2px #eee inset;
+	}
+
+button {
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	box-shadow: 0 0 0 2px #f8f8f8 inset;
+	background: #eee;
+	color: #555;
+	margin: 6px 3px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+	button:active, button:hover, button.hover {
+		box-shadow: 0 0 0 2px #e8e8e8 inset;
+		background: #e0e0e0;
+	}
+
+	#search {
+		font-weight: bold;
+	}
+
+#cursor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: auto;
+	margin: -4px 0 0 -2px;
+	width: 15px;
+	height: 22px;
+	background-position: right 0;
+}
+	#cursor.pointer {
+		width: 20px;
+		height: 19px;
+		margin: -2px 0 0 -5px;
+		background-position: left 0;
+	}
+
+	#cursor.text {
+		width: 10px;
+		height: 19px;
+		margin: -9px 0 0 -4px;
+		background-position: -20px 0;
+	}
+
+#cursor {
+	background-image: url("data:image/png;base64,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");
+}
+
+#link {
+	border: 0;
+	background: transparent;
+	box-shadow: none;
+	text-align: center;
+}
+
+#copy {
+	font-size: small;
+	color: #888;
+}
+</style>
+
+
+<script>
+(function() {
+	var	query, search, lazy, cursor, button, link, copy,
+		$ = function($) {
+			if ($[0] == '<') {
+				var f = document.createElement('div');
+				f.innerHTML = $;
+				$ = f.childNodes[0];
+			} else {
+				$ = document.getElementById($);
+			}
+
+			return {
+				_el: $,
+				val: function(v) {
+					if (!v) return this._el.value;
+					this._el.value = v;
+					return this;
+				},
+				focus: function() { this._el.focus(); return this; },
+				click: function() { this._el.click(); return this; },
+				_n: function(prop) {
+					var el = this._el,
+						n  = 0;
+					while (el.tagName.toLowerCase() !== 'body') {
+						n += +el[prop];
+						el = el.parentNode;
+					}
+					return n;
+				},
+				left: function(n) {
+					if (typeof n === 'undefined') {
+						this._left = this._left || this._n('offsetLeft') + this._n('clientLeft');
+						return this._left;
+					}
+					this._el.style.left = n + 'px';
+					this._left = n;
+					return this;
+				},
+				top: function(n) {
+					if (typeof n === 'undefined') {
+						this._top = this._top || this._n('offsetTop') + this._n('clientTop');
+						return this._top;
+					}
+					this._el.style.top = n + 'px';
+					this._top = n;
+					return this;
+				},
+				width: function() {
+					return this._el.clientWidth;
+				},
+				height: function() {
+					return this._el.clientHeight;
+				},
+				collides: function(x, y) {
+					return (x > this.left() && x < this.left() + this.width() &&
+					        y > this.top()  && y < this.top()  + this.height());
+				},
+				class: function(cl) {
+					if (typeof cl == 'undefined')
+						return this._el.className;
+
+					this._el.className = cl;
+					return this;
+				},
+				on: function(event, cb) {
+					this._el['on' + event] = cb;
+					return this;
+				},
+				html: function(html) {
+					if (typeof html == 'undefined')
+						return this._el.innerHTML;
+
+					this._el.innerHTML = html;
+					return this;
+				},
+				append: function(el) {
+					this._el.appendChild(el);
+					return this;
+				},
+				select: function() {
+					this.focus();
+					this._el.select();
+					return this;
+				}
+			};
+		},
+		engines = {
+			ggl: ['Google', 'https://www.google.com/search?q=@', function(_) {
+				return _ + '&btnI=I\'m+Feeling+Lucky';
+			}],
+
+			ddg: ['DuckDuckGo', 'https://duckduckgo.com/?q=@', function(_) {
+				return _.replace('q=', 'q=!+');
+			}],
+
+			tfd: ['The Free Dictionary', 'http://tfd.com/@']
+		},
+		local  = location.protocol + '//' + location.host + location.pathname,
+		engine = /s=.../.test(location.search) ? location.search.match(/s=(...)/)[1] : 'ddg',
+		encode = function(string) {
+			return encodeURIComponent(string)
+				.replace(/%20/g, '+');
+		},
+		decode = function(string) {
+			return decodeURIComponent(string
+				.replace(/\+/g, '%20'));
+		};
+
+
+	({
+		_stack: [],
+		_move: function(args, cb) {
+			var x, y, startX, startY,
+				rate   = 50,
+				ms	 = args[2] || 1000,
+				count  = Math.floor(ms / (1000 / rate)),
+				step   = 0,
+				endX   = args[0] + 20 + Math.random() * 20,
+				endY   = args[1] + 10 + Math.random() * 10;
+
+			x = startX = cursor.left();
+			y = startY = cursor.top();
+
+			var interval = setInterval(function() {
+				x -= (startX - endX) / count;
+				y -= (startY - endY) / count;
+
+				cursor.left(x);
+				cursor.top(y);
+
+				if (query.collides(x, y)) {
+					cursor.class('text');
+				} else {
+					cursor.class('');
+				}
+
+				if (lazy.collides(x, y)) {
+					cursor.class('pointer');
+					lazy.class('hover');
+				} else {
+					lazy.class('');
+				}
+
+				if (search.collides(x, y)) {
+					cursor.class('pointer');
+					search.class('hover');
+				} else {
+					search.class('');
+				}
+
+				if (++step == count) {
+					if (typeof cb == 'function') cb();
+					clearInterval(interval);
+				}
+			}, 1000 / rate);
+		},
+		_wait: function(args, cb) {
+			setTimeout(cb, args[0]);
+		},
+		_run: function(args, cb) {
+			this._fun = args[0];
+			this._fun(cb);
+		},
+
+		// calls
+		move: function() {
+			this._stack.push(['move', arguments]);
+			return this;
+		},
+		wait: function() {
+			this._stack.push(['wait', arguments]);
+			return this;
+		},
+		run: function() {
+			this._stack.push(['run', arguments]);
+			return this;
+		},
+		start: function() {
+			var self = this, interval, _;
+			if (!this._readystate) {
+				this._readystate = 1;
+				setTimeout(function() {
+					if (!document.body && !document.body.firstChild)
+						return setTimeout(arguments.callee, 1);
+
+					self._readystate = 2;
+					self.start();
+				}, 1);
+			}
+
+			if (!this._stack.length || this._readystate < 2) return;
+
+			_ = this._stack.shift();
+			this['_' + _[0]](_[1], function() {
+				self.start();
+			});
+		}
+	})
+	.run(function(cb) {
+		query  = $('q');
+		search = $('search');
+		lazy   = $('lazy');
+		cursor = $('cursor');
+		link   = $('link');
+		copy   = $('copy');
+		button = /l=1/.test(location.search) ? lazy : search;
+
+		Object.keys(engines).forEach(function(eng) {
+			var opt = $('<option ' + (eng == engine ? 'selected' : '') + '>');
+			opt.val(eng);
+			opt.html(engines[eng][0]);
+			$('engine').append(opt._el);
+		});
+
+		$('engine').on('change', function() {
+			engine = this.value;
+		});
+
+		$('poster').on('submit', function() {
+			search.click();
+			return false;
+		});
+
+		link
+			.on('blur', function() {
+				copy.html('');
+			})
+			.on('click', function() {
+				if (this.value.length) {
+					link.select();
+					copy.html('Press Ctrl+C to copy');
+				}
+			});
+
+		var _url = function(lazy) {
+			if (!query.val().length)
+				return;
+
+			link
+				.val(local + '?q=' + encode(query.val()) + (engine != 'ddg' ? '&s=' + engine : '') + (lazy ? '&l=1' : ''))
+				.select();
+
+			copy.html('Press Ctrl+C to copy');
+		};
+
+		search.on('click', function() {
+			_url(false);
+		});
+
+		lazy.on('click', function() {
+			_url(true);
+		});
+
+		cursor.left(-30).top(-30);
+
+		var offset;
+		if (Math.floor(Math.random() * 2)) {
+			cursor.left((Math.random() * window.innerWidth) - 30);
+			offset = Math.random() * query.width() * .8;
+		} else {
+			cursor.top((Math.random() * window.innerHeight) - 30);
+
+			if (cursor.top() < query.top() - 70 || cursor.top() > query.top() + 70)
+				offset = Math.random() * query.width() * .5;
+		}
+
+		if (location.search.length && !query.val().length) {
+			this
+				.wait(500)
+				.move(query.left() + offset + 30, query.top())
+				.wait(300)
+				.run(function(cb) {
+					query.focus();
+					cb();
+				})
+				.wait(500)
+				.move(query.left() + offset + (30 - (Math.random() * 60)), query.top() - (15 + (Math.random() * 60)), 300)
+				.wait(500)
+				.run(function(cb) {
+					var string = decode((location.search.match(/q=([^&]+)/) || ['', ''])[1]);
+					(function tak() {
+						if (query.val().length == string.length) return cb();
+						query.val(string.substr(0, query.val().length + 1));
+						setTimeout(tak, 70 + (Math.random() * 120));
+					})();
+				})
+				.move(button.left() + button.width() / 2, button.top(), 600)
+				.wait(800)
+				.run(function(cb) {
+					var eng = engines[engine] ? engine : 'ddg', url;
+					url = engines[eng][1].replace('@', encodeURIComponent(query.val()).replace(/%20/g, '+'));
+					if (typeof engines[eng][2] == 'function' && button === lazy)
+						url = engines[eng][2](url);
+					location = url;
+				});
+
+			cb();
+		}
+	})
+	.start();
+})();
+</script>
+

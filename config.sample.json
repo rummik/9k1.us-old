@@ -1,0 +1,7 @@
+{
+	"//": "NOTE: Changing this later will NOT break existing URLs",
+	"id_alphabet": "!$*,-.0123456789:;@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~",
+
+	"//": "API access key",
+	"api_key": "CHANGEME"
+}

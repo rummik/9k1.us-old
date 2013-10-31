@@ -1,0 +1,10 @@
+#!/bin/sh
+# clear cached assets (unversioned/ignored files)
+git clean -x -f -- public
+
+# clean unversioned files from vendor (e.g. old submodules)
+git clean -d -f -- vendor
+
+# install composer modules
+curl -sS https://getcomposer.org/installer | php
+php composer.phar install

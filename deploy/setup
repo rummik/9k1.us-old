@@ -2,3 +2,4 @@
 mkdir -p paste
 setfacl -m u:www-data:rwx paste
 setfacl -m g:www-data:rwx paste
+curl -sS https://getcomposer.org/installer | php

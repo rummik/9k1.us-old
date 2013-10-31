@@ -5,6 +5,12 @@ git clean -x -f -- public
 # clean unversioned files from vendor (e.g. old submodules)
 git clean -d -f -- vendor
 
+# update composer
+php composer.phar self-update
+
 # install composer modules
-curl -sS https://getcomposer.org/installer | php
-php composer.phar install
+if [ ! -f composer.lock ]; then
+	php composer.phar install
+else
+	php composer.phar update
+fi

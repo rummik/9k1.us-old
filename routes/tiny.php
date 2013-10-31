@@ -65,6 +65,7 @@
 		}
 
 		header("Content-Type: $type");
+		header('X-Robots-Tag: noindex, nofollow');
 
 		# todo: use sendfile headers in production
 		fpassthru(fopen($file, 'r'));

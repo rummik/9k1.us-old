@@ -16,8 +16,6 @@
 </div>
 
 <div id="cursor"></div>
-<img src="//i.9k1.us/">
-
 
 <style>
 body, input, button {
@@ -206,7 +204,7 @@ button {
 				return _.replace('q=', 'q=!+');
 			}],
 
-			tfd: ['The Free Dictionary', 'http://tfd.com/@']
+			tfd: ['The Free Dictionary', 'http://tfd.com/@'],
 		},
 		local  = location.protocol + '//' + location.host + location.pathname,
 		engine = /s=.../.test(location.search) ? location.search.match(/s=(...)/)[1] : 'ddg',
@@ -413,4 +411,3 @@ button {
 	.start();
 })();
 </script>
-

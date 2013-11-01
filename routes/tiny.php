@@ -22,6 +22,11 @@
 				mkdir($dir, 0755, true);
 
 			copy($_FILES['data']['tmp_name'], $file);
+		} elseif (count($_POST) && isset($_POST['data'])) {
+			if (!is_dir($dir))
+				mkdir($dir, 0755, true);
+
+			file_put_contents($file, $_POST['data']);
 		} else {
 			$res->setStatus(400);
 			$res->setBody('{"error":"No data"}');

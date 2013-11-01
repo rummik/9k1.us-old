@@ -36,6 +36,7 @@
 
 	$app->get('/:id(/:name)', function($id) use ($app, $db) {
 		$res = $app->response;
+		$req = $app->request;
 
 		$res->headers->set('Content-Type', 'application/json');
 
@@ -67,8 +68,18 @@
 		header("Content-Type: $type");
 		header('X-Robots-Tag: noindex, nofollow');
 
+		$file = fopen($file, 'r');
+		$line = fgets($file);
+
+		if (feof($file) && strtolower(substr($line, 0, 4)) == 'http') {
+			header('Location: ' . $line);
+			exit;
+		}
+
+		fseek($file, 0);
+
 		# todo: use sendfile headers in production
-		fpassthru(fopen($file, 'r'));
+		fpassthru($file);
 
 		exit;
 	})

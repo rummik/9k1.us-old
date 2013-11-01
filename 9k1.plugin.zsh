@@ -34,7 +34,7 @@ function 9k1 {
 		cat "$@" | -9k1push
 	elif [[ -n "$@" ]]; then
 		print Pasting "\"$@\""... >&2
-		-9k1push <<< "$@"
+		print -n "$@" | -9k1push
 	else
 		print Nothing to do >&2
 		return 1

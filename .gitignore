@@ -1,4 +1,8 @@
 vendor
+tmp
+log
+mu-*.txt
 paste
 composer.lock
+composer.phar
 config.json

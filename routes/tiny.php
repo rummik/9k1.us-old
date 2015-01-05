@@ -60,6 +60,7 @@
 		$type = (new FInfo(FILEINFO_MIME_TYPE))->file($file);
 
 		switch (dirname($type)) {
+			case 'video': break;
 			case 'image': break;
 			case 'text':
 				$type = 'text/plain';

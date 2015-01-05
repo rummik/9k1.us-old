@@ -39,7 +39,7 @@
 		]));
 	});
 
-	$app->get('/:id(/:name)', function($id) use ($app, $db) {
+	$app->get('/:id(/:name)', function($id, $name) use ($app, $db) {
 		$res = $app->response;
 		$req = $app->request;
 
@@ -68,6 +68,12 @@
 
 			default:
 				header('Content-Disposition: attachment');
+				break;
+		}
+
+		switch (substr($name, -4, 4)) {
+			case '.svg':
+				$type = 'image/svg+xml';
 				break;
 		}
 

@@ -62,6 +62,7 @@
 		switch (dirname($type)) {
 			case 'video': break;
 			case 'image': break;
+			case 'audio': break;
 			case 'text':
 				$type = 'text/plain';
 				break;

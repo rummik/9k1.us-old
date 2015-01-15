@@ -9,6 +9,7 @@ Pages:
 
 - https://9k1.us
 - https://9k1.us/ip
+- https://9k1.us/head
 - https://9k1.us/search
 - https://9k1.us/random
 - https://9k1.us/fortune

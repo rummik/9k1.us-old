@@ -8,7 +8,7 @@
 			if (substr($key, 0, 5) != 'HTTP_')
 				continue;
 
-			$key = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));
+			$key = str_replace('_', '-', strtolower(substr($key, 5)));
 			$headers[$key] = $value;
 		}
 

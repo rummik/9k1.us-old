@@ -16,3 +16,25 @@ Pages:
 
 [Donations]: http://img.shields.io/gratipay/rummik.svg
 [gratipay]: https://gratipay.com/rummik/
+
+
+## 9k1 ZSH plugin
+Install with [Antigen](https://github.com/zsh-users/antigen) in your `.zshrc`:
+```
+antigen bundle rummik/9k1.us
+```
+
+```
+> 9k1 -h
+Usage:
+  9k1 [options] <file|text>
+    myapp | 9k1
+
+    Options:
+      -h,--help  Print this help
+```
+
+### Configuration
+- Copy `config.sample.json` to `config.json`, and edit
+- Copy `9k1rc.sample` to `~/.9k1rc`, and edit -- be sure to se the `api_key`
+  value to be the same across both

@@ -25,7 +25,16 @@ function 9k1 {
 
 	local file
 
-	if [[ ! -t 0 ]]; then
+	if [[ $@ == '-h' || $@ == '--help' ]]; then
+		<<-EOF
+		Usage:
+		  $0 [options] <file|text>
+		  myapp | $0 [options]
+
+		Options:
+		  -h,--help  Print this help
+		EOF
+	elif [[ ! -t 0 ]]; then
 		print Slurping input from STDIN... >&2
 		-9k1push
 	elif [[ -f "$@" ]]; then

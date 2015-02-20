@@ -18,7 +18,7 @@ function -9k1push {
 }
 
 function 9k1 {
-	local url=http://9k1.us
+	local url=https://9k1.us
 	local api_key
 
 	source ~/.9k1rc

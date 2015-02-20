@@ -28,10 +28,10 @@ antigen bundle rummik/9k1.us
 > 9k1 -h
 Usage:
   9k1 [options] <file|text>
-    myapp | 9k1
+  myapp | 9k1
 
-    Options:
-      -h,--help  Print this help
+Options:
+  -h,--help  Print this help
 ```
 
 ### Configuration

@@ -23,7 +23,11 @@ function 9k1 {
 
 	source ~/.9k1rc
 
-	local file
+	local file name
+
+	zparseopts -D -E -- n+:=name -name+:=name
+
+	file=${name[-1]}
 
 	if [[ $@ == '-h' || $@ == '--help' ]]; then
 		<<-EOF
@@ -33,13 +37,14 @@ function 9k1 {
 
 		Options:
 		  -h,--help  Print this help
+		  -n,--name  Name of file after pasting
 		EOF
 	elif [[ ! -t 0 ]]; then
 		print Slurping input from STDIN... >&2
 		-9k1push
 	elif [[ -f "$@" ]]; then
 		print Uploading "$@"... >&2
-		file="$@"
+		file="${name[-1]:-$@}"
 		cat "$@" | -9k1push
 	elif [[ -n "$@" ]]; then
 		print Pasting "\"$@\""... >&2

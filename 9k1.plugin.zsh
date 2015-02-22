@@ -25,11 +25,13 @@ function 9k1 {
 
 	local file name
 
-	zparseopts -D -E -- n+:=name -name+:=name
+	zparseopts -D -E -- \
+		n+:=name -name+:=name \
+		h=help -help=help
 
 	file=${name[-1]}
 
-	if [[ $@ == '-h' || $@ == '--help' ]]; then
+	if [[ ! -z $help ]]; then
 		<<-EOF
 		Usage:
 		  $0 [options] <file|text>

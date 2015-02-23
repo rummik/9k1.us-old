@@ -31,7 +31,7 @@ function 9k1 {
 
 	file=${name[-1]}
 
-	if [[ ! -z $help ]]; then
+	if [[ ! -z $help || ( -t 0 && -z "$@" ) ]]; then
 		<<-EOF
 		Usage:
 		  $0 [options] <file|text>
@@ -51,9 +51,6 @@ function 9k1 {
 	elif [[ -n "$@" ]]; then
 		print Pasting "\"$@\""... >&2
 		print -n "$@" | -9k1push
-	else
-		print Nothing to do >&2
-		return 1
 	fi
 }
 

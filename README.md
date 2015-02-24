@@ -32,6 +32,7 @@ Usage:
 
 Options:
   -h,--help  Print this help
+  -n,--name  Name of file after pasting
 ```
 
 ### Configuration

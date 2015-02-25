@@ -29,8 +29,6 @@ function 9k1 {
 		n+:=name -name+:=name \
 		h=help -help=help
 
-	file=${name[-1]}
-
 	if [[ ! -z $help || ( -t 0 && -z "$@" ) ]]; then
 		<<-EOF
 		Usage:
@@ -41,7 +39,13 @@ function 9k1 {
 		  -h,--help  Print this help
 		  -n,--name  Name of file after pasting
 		EOF
-	elif [[ ! -t 0 ]]; then
+
+		return 1
+	fi
+
+	file=${name[-1]}
+
+	if [[ ! -t 0 ]]; then
 		print Slurping input from STDIN... >&2
 		-9k1push
 	elif [[ -f "$@" ]]; then

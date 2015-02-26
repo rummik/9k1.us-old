@@ -23,7 +23,7 @@ function 9k1 {
 
 	source ~/.9k1rc
 
-	local file name
+	local file name help
 
 	zparseopts -D -E -- \
 		n+:=name -name+:=name \

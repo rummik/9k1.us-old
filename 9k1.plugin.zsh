@@ -23,11 +23,17 @@ function 9k1 {
 
 	source ~/.9k1rc
 
-	local file name help
+	local file name help ip
 
 	zparseopts -D -E -- \
 		n+:=name -name+:=name \
-		h=help -help=help
+		h=help -help=help \
+		i=ip -ip=ip
+
+	if [[ ! -z $ip ]]; then
+		curl -s $url/ip
+		return
+	fi
 
 	if [[ ! -z $help || ( -t 0 && -z "$@" ) ]]; then
 		<<-EOF
@@ -38,6 +44,7 @@ function 9k1 {
 		Options:
 		  -h,--help  Print this help
 		  -n,--name  Name of file after pasting
+		  -i,--ip    Print current external IP address
 		EOF
 
 		return 1

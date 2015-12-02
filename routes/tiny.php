@@ -39,7 +39,7 @@
 		]));
 	});
 
-	$app->get('/:id(/:name)', function($id, $name) use ($app, $db) {
+	$app->get('/:id(/:name)', function($id, $name='outfile') use ($app, $db) {
 		$res = $app->response;
 		$req = $app->request;
 

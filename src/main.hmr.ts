@@ -6,12 +6,14 @@ declare const module: any;
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
+  const port = process.env.NODE_PORT || 3000;
 
   app.useStaticAssets(join(process.cwd(), 'public'));
   app.setBaseViewsDir(join(process.cwd(), 'views'));
   app.setViewEngine('hbs');
 
-  await app.listen(3000);
+  await app.listen(port);
+  console.log('Listening on port', port);
 
   if (module.hot) {
     module.hot.accept();

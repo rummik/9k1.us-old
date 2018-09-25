@@ -9,11 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
+const path_1 = require("path");
 const app_module_1 = require("./app.module");
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
-        yield app.listen(3000);
+        const port = process.env.NODE_PORT || 3000;
+        app.useStaticAssets(path_1.join(process.cwd(), 'public'));
+        app.setBaseViewsDir(path_1.join(process.cwd(), 'views'));
+        app.setViewEngine('hbs');
+        yield app.listen(port);
+        console.log('Listening on port', port);
         if (module.hot) {
             module.hot.accept();
             module.hot.dispose(() => app.close());

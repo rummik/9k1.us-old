@@ -14,10 +14,12 @@ const app_module_1 = require("./app.module");
 function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
+        const port = process.env.NODE_PORT || 3000;
         app.useStaticAssets(path_1.join(__dirname, '..', 'public'));
         app.setBaseViewsDir(path_1.join(__dirname, '..', 'views'));
         app.setViewEngine('hbs');
-        yield app.listen(3000);
+        yield app.listen(port);
+        console.log('Listening on port', port);
     });
 }
 bootstrap();

@@ -6,7 +6,7 @@ declare const module: any;
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.NODE_PORT || 3000;
+  const port = process.env.PORT || 3000;
 
   app.useStaticAssets(join(process.cwd(), 'public'));
   app.setBaseViewsDir(join(process.cwd(), 'views'));

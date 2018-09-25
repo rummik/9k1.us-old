@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset=utf-8>
+<title>Random</title>
+
+<button onclick="showRandNum()">Generate Random Number</button>
+<div>Result: <span id="num"></span></div>
+
+<script>
+function showRandNum() {
+	document.getElementById('num').innerHTML = genRandNum();
+}
+
+function genRandNum() {
+	return 4; // chosen by fair dice roll.
+	          // guaranteed to be random.
+}
+</script>

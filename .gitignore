@@ -2,3 +2,4 @@ node_modules
 dist/*.hot-update.*
 dist/*.map
 dist/*.ts
+dist/dist

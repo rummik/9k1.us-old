@@ -10,6 +10,8 @@ async function bootstrap(): Promise<void> {
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
 
+  app.enable('trust proxy');
+
   await app.listen(port);
   console.log('Listening on port', port);
 }
